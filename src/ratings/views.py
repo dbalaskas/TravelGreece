@@ -5,10 +5,9 @@ from . import serializers
 from . import models
 
 # class ListingList(generics.ListCreateAPIView):
-class ListingViewSet(viewsets.ModelViewSet):
+class ListingRatingViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = models.Listing.objects.all()
-    serializer_class = serializers.ListingSerializer
-
+    queryset = models.ListingRating.objects.all()
+    serializer_class = serializers.ListingRatingSerializer

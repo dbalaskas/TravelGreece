@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'ratings.apps.RatingsConfig',
     'listings.apps.ListingsConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
