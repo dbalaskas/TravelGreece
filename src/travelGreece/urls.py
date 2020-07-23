@@ -1,13 +1,15 @@
 from django.urls import include, path
 from rest_framework import routers
-from listings import views as lviews
-from ratings import views as rviews
+from listings import views as listing_views
+from accounts import views as acc_views
 from django.contrib import admin
 
 
 router = routers.DefaultRouter()
-router.register(r'listings', lviews.ListingViewSet)
-router.register(r'listing_ratings', rviews.ListingRatingViewSet)
+router.register(r'listings', listing_views.ListingViewSet)
+router.register(r'listingRatings', listing_views.ListingRatingViewSet)
+router.register(r'realtors', acc_views.RealtorViewSet)
+router.register(r'realtorRatings', acc_views.RealtorRatingViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
