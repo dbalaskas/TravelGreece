@@ -17,7 +17,7 @@ listing_types = [
 ]
 
 class Listing(models.Model):
-    realtor = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
+    realtor = models.ForeignKey(Account,on_delete=models.DO_NOTHING)
     listing_type = models.CharField(max_length=100, choices=listing_types)
     title = models.CharField(max_length=200)
     address = models.CharField(max_length=200)

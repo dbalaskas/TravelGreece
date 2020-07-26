@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'contract.apps.ContractConfig',
+    'messages.apps.MessagesConfig',
     'listings.apps.ListingsConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
