@@ -13,4 +13,3 @@ class Message(models.Model):
 	mtext=models.CharField(max_length=200)
 	read=models.BooleanField(default=False)
 	date=models.DateTimeField(default=datetime.now, blank=True)
-

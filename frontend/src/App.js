@@ -1,72 +1,100 @@
 import React, { Component } from 'react';
-import {v4 as uuid} from 'uuid';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './App.css';
+import { fetchListings, fetchListing, addListing } from './api';
+
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import AddTodo from './components/AddTodo';
-import Todos from './components/Todos';
+import SearchBar from './components/layout/SearchBar';
+
+import Home from './components/pages/Home';
 import About from './components/pages/About';
+import Register from './components/pages/Register';
+import Login from './components/pages/Login';
+import Search from './components/pages/Search';
 
 class App extends Component {
-  state = {
-    todos: [
-      {
-        id: uuid(),
-        title: 'Take out the trash',
-        completed: false
-      },
-      {
-        id: uuid(),
-        title: 'Dinner with wife',
-        completed: false
-      },
-      {
-        id: uuid(),
-        title: 'Meet the boss',
-        completed: false
-      }
-    ]
-  }
+  constructor(props) {
+    super(props);
 
-  // Toggle Complete
-  markComplete = (id) => {
-    this.setState({ todos: this.state.todos.map(todo => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed
-      }
-      return todo;
-    }) });
-  }
-
-  // Delete Todo
-  delTodo = (id) => {
-    this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)] });
-  }
-
-  // Add Todo
-  addTodo = (title) => {
-    const newTodo = {
-      id: uuid(),
-      title: title,
-      completed: false
+    this.state = {
+      listings: [],
+      listing: {},
+      current_listing_id: 0,
+      is_creating: true,
+      is_fetching: true
     }
-    this.setState({todos: [...this.state.todos, newTodo] });
+
+    this.handleItemClick = this.handleItemClick.bind(this);
+    this.handleAddListing = this.handleAddListing.bind(this);
+    this.handleSaveListing = this.handleSaveListing.bind(this);
+    // this.handleData = this.handleData.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
+
+  async handleItemClick(id) {
+    let selected_listing = await fetchListing(id);
+
+    this.setState({
+      is_creating: false, 
+      current_listing_id: id, 
+      listing: selected_listing
+    });
+  }
+
+  handleAddListing() {
+    this.setState((prevState) => {
+      return {is_creating: true}
+    });
+  }
+
+  async handleSaveListing(data) {
+    await addListing(data);
+    await this.getData(); 
+  }
+
+  handleData(data) {
+    let result = JSON.parse(data);
+
+    let current_listing = this.state.listing;
+    if (current_listing.id === result.id) {
+      this.setState({listing: result}); 
+    }
+  }
+
+  handleOnChange(e) {
+    let content = e.target.value;
+    let current_listing = this.state.listing;
+    current_listing.content = content;
+
+    this.setState({
+      listing: current_listing
+    });
+
+    const socket = this.refs.socket;
+    socket.state.ws.send(JSON.stringify(current_listing));
   }
 
   render() {
     return (
       <Router>
-        <div className="App">
-          <Header />
-          <div className="container" style={{ paddingTop: '70px', paddingBottom: '20px' }}>
-            <Route exact path="/" render={props=> (
-              <React.Fragment>
-                  <AddTodo addTodo={this.addTodo} />
-                  <Todos todos={ this.state.todos } markComplete={ this.markComplete } delTodo={this.delTodo} />
-              </React.Fragment>
-            )} />
-            <Route path="/about" component={About} />
+        <div className="page-container">
+          <div className="content-wrap">
+            <Header />
+            <div style={{ paddingTop: '56px', paddingBottom: '20px' }}>
+              <Route exact path="/" render={props=> (
+                <React.Fragment>
+                  <SearchBar />
+                  <hr />
+                  <Home />       
+                </React.Fragment>
+              )} />
+              <Route path="/about" component={About} />
+              <Route path="/register" component={Register} />
+              <Route path="/login" component={Login} />
+              <Route path="/search" component={Search} />
+            </div>
           </div>
           <Footer />
         </div>

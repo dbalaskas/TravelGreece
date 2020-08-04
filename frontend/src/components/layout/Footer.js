@@ -1,17 +1,25 @@
 import React from 'react';
-import { Navbar, Container, Row } from 'react-bootstrap';
+// import { Navbar, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 
 function Footer() {
     return (
-        // <Navbar bg="primary" expand="lg" variant="dark" fixed="bottom">
-        <div id="main-footer" className="primary">
+        <div id="main-footer" className="primary" style={footer}>
             <Container>
-                <h4 className="text-center">Copyright &copy;{new Date().getFullYear()} TravelGreece - All Rights Reserved</h4>
+                <div className="text-center">&copy;{new Date().getFullYear()} TravelGreece - All Rights Reserved | Terms of service | Ptivacy</div>
             </Container>
         </div>
-        // </Navbar>
     )
 }
 
 export default Footer;
+
+const footer = {
+	color: '#fff',
+	background: '#444',
+	padding: '2em 0 0 0',
+	possition: 'relative',
+	bottom: '0',
+	width: '100%'
+}
