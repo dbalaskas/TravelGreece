@@ -1,8 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import { Container, Navbar, Nav } from 'react-bootstrap';
-import { faUserPlus, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Container } from 'react-bootstrap';
 import '../../css/style.css';
 
 

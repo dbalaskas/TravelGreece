@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
-import { fetchListings, fetchListing, addListing } from './api';
+import { fetchListing, addListing } from './api';
 
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import SearchBar from './components/layout/SearchBar';
+import DatePicker from './components/partials/DatePicker.js';
 
 import Home from './components/pages/Home';
 import About from './components/pages/About';
@@ -94,6 +95,7 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/search" component={Search} />
+              <Route path="/date" component={DatePicker} />
             </div>
           </div>
           <Footer />

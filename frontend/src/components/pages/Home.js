@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Listings from '../listings/Listings';
-import { fetchListings, fetchListing, updateListing, addListing } from '../../api';
+import { fetchListings, fetchListing } from '../../api';
 import { Container } from 'react-bootstrap';
 
 export class Home extends Component {
@@ -30,7 +30,7 @@ export class Home extends Component {
   // Rent Listing
   rentedListing = (url) => {
     this.setState({listings: [...this.state.listings.filter(listing => listing.url !== url)] });
-    alert('Rented Listing '+this.state.listings[0].url+' vs '+url)
+    alert('Rented Listing '+url)
   }
 
   render() {
